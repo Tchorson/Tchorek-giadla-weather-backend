@@ -1,0 +1,79 @@
+Engine: fuzzylogic.fll
+InputVariable: humidity
+    enabled: true
+    range: 0.00 100.00
+    lock-range: false
+    term: dry ZShape 0 50
+    term: optimal Bell 45 5 4
+    term: moist SShape 55 100
+InputVariable: windSpeed
+    enabled: true
+    range: 0.00 100.00
+    lock-range: false
+    term: weak Sigmoid 40 10
+    term: strong Trapezoid 40 50 70 90
+    term: extreme Sigmoid 90 -18
+InputVariable: temperature
+    enabled: true
+    range: -100.00 100.00
+    lock-range: false
+    term: low Sigmoid 10 5
+    term: medium Triangle 10 15 24
+    term: high Trapezoid 20 24 30 35
+    term: extreme Sigmoid 40 -10
+OutputVariable: dangerlvl
+    enabled: true
+    range: 0 5
+    lock-range: false
+    aggregation: Maximum
+    defuzzifier: Centroid 100
+    default: nan
+    lock-previous: false
+    term: F0 Constant 0.0
+    term: F1 Constant 1.0
+    term: F2 Constant 2.0
+    term: F3 Constant 3.0
+    term: F4 Constant 4.0
+    term: F5 Constant 5.0
+RuleBlock: mamdani
+    enabled: true
+    conjunction: Minimum
+    disjunction: none
+    implication: AlgebraicProduct
+    activation: General
+    rule: if humidity is dry and windSpeed is weak and temperature is low then dangerlvl is F4
+    rule: if humidity is dry and windSpeed is weak and temperature is medium then dangerlvl is F3
+    rule: if humidity is dry and windSpeed is weak and temperature is high then dangerlvl is F2
+    rule: if humidity is dry and windSpeed is weak and temperature is extreme then dangerlvl is F4
+    rule: if humidity is dry and windSpeed is strong and temperature is low then dangerlvl is F5
+    rule: if humidity is dry and windSpeed is strong and temperature is medium then dangerlvl is F4
+    rule: if humidity is dry and windSpeed is strong and temperature is high then dangerlvl is F3
+    rule: if humidity is dry and windSpeed is strong and temperature is extreme then dangerlvl is F3
+    rule: if humidity is dry and windSpeed is extreme and temperature is low then dangerlvl is F5
+    rule: if humidity is dry and windSpeed is extreme and temperature is medium then dangerlvl is F4
+    rule: if humidity is dry and windSpeed is extreme and temperature is high then dangerlvl is F4
+    rule: if humidity is dry and windSpeed is extreme and temperature is extreme then dangerlvl is F4
+    rule: if humidity is optimal and windSpeed is weak and temperature is low then dangerlvl is F2
+    rule: if humidity is optimal and windSpeed is weak and temperature is medium then dangerlvl is F1
+    rule: if humidity is optimal and windSpeed is weak and temperature is high then dangerlvl is F1
+    rule: if humidity is optimal and windSpeed is weak and temperature is extreme then dangerlvl is F0
+    rule: if humidity is optimal and windSpeed is strong and temperature is low then dangerlvl is F3
+    rule: if humidity is optimal and windSpeed is strong and temperature is medium then dangerlvl is F2
+    rule: if humidity is optimal and windSpeed is strong and temperature is high then dangerlvl is F2
+    rule: if humidity is optimal and windSpeed is strong and temperature is extreme then dangerlvl is F1
+    rule: if humidity is optimal and windSpeed is extreme and temperature is low then dangerlvl is F4
+    rule: if humidity is optimal and windSpeed is extreme and temperature is medium then dangerlvl is F3
+    rule: if humidity is optimal and windSpeed is extreme and temperature is high then dangerlvl is F3
+    rule: if humidity is optimal and windSpeed is extreme and temperature is extreme then dangerlvl is F3
+    rule: if humidity is moist and windSpeed is weak and temperature is low then dangerlvl is F3
+    rule: if humidity is moist and windSpeed is weak and temperature is medium then dangerlvl is F2
+    rule: if humidity is moist and windSpeed is weak and temperature is high then dangerlvl is F1
+    rule: if humidity is moist and windSpeed is weak and temperature is extreme then dangerlvl is F0
+    rule: if humidity is moist and windSpeed is strong and temperature is low then dangerlvl is F4
+    rule: if humidity is moist and windSpeed is strong and temperature is medium then dangerlvl is F3
+    rule: if humidity is moist and windSpeed is strong and temperature is high then dangerlvl is F2
+    rule: if humidity is moist and windSpeed is strong and temperature is extreme then dangerlvl is F1
+    rule: if humidity is moist and windSpeed is extreme and temperature is low then dangerlvl is F5
+    rule: if humidity is moist and windSpeed is extreme and temperature is medium then dangerlvl is F4
+    rule: if humidity is moist and windSpeed is extreme and temperature is high then dangerlvl is F3
+    rule: if humidity is moist and windSpeed is extreme and temperature is extreme then dangerlvl is F2
