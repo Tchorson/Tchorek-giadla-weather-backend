@@ -1,5 +1,11 @@
 package com.example.cloudcomputinggiadlatchorek.service;
 
+import com.amazonaws.AmazonClientException;
+import com.amazonaws.ClientConfiguration;
+import com.amazonaws.auth.EnvironmentVariableCredentialsProvider;
+import com.amazonaws.auth.profile.ProfileCredentialsProvider;
+import com.amazonaws.services.kinesis.AmazonKinesisClientBuilder;
+import com.amazonaws.services.rds.AmazonRDSClientBuilder;
 import com.example.cloudcomputinggiadlatchorek.TornadoCategory;
 import com.example.cloudcomputinggiadlatchorek.config.TornadoStateConfig;
 import com.example.cloudcomputinggiadlatchorek.logic.FuzzyLogic;
@@ -65,6 +71,12 @@ public class TornadoStateService {
         cache.add(t);
         tornadoStateRepository.save(t);
     }
+
+    @Scheduled(cron = "*30*****")
+    public void createWeatherStream() {
+
+    }
+
 
     public List<TornadoState>getCache(){
         return this.cache;
